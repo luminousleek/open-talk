@@ -1,0 +1,25 @@
+{
+  "files": {
+    "main.css": "/open-talk/static/css/main.0d8bc4b4.chunk.css",
+    "main.js": "/open-talk/static/js/main.150941fe.chunk.js",
+    "main.js.map": "/open-talk/static/js/main.150941fe.chunk.js.map",
+    "runtime-main.js": "/open-talk/static/js/runtime-main.de318e25.js",
+    "runtime-main.js.map": "/open-talk/static/js/runtime-main.de318e25.js.map",
+    "static/css/2.27dd871e.chunk.css": "/open-talk/static/css/2.27dd871e.chunk.css",
+    "static/js/2.814d578d.chunk.js": "/open-talk/static/js/2.814d578d.chunk.js",
+    "static/js/2.814d578d.chunk.js.map": "/open-talk/static/js/2.814d578d.chunk.js.map",
+    "static/js/3.51a4713e.chunk.js": "/open-talk/static/js/3.51a4713e.chunk.js",
+    "static/js/3.51a4713e.chunk.js.map": "/open-talk/static/js/3.51a4713e.chunk.js.map",
+    "index.html": "/open-talk/index.html",
+    "static/css/2.27dd871e.chunk.css.map": "/open-talk/static/css/2.27dd871e.chunk.css.map",
+    "static/css/main.0d8bc4b4.chunk.css.map": "/open-talk/static/css/main.0d8bc4b4.chunk.css.map",
+    "static/js/2.814d578d.chunk.js.LICENSE.txt": "/open-talk/static/js/2.814d578d.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.de318e25.js",
+    "static/css/2.27dd871e.chunk.css",
+    "static/js/2.814d578d.chunk.js",
+    "static/css/main.0d8bc4b4.chunk.css",
+    "static/js/main.150941fe.chunk.js"
+  ]
+}
