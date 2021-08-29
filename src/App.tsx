@@ -187,7 +187,7 @@ function App() {
               <Card.Header>Deck</Card.Header>
               <Card.Body>
                 <Card.Title>open talk</Card.Title>
-                <Card.Text>Questions to get to know people in varying levels of depth. <br /><br />Submit your feedback on this deck <a href="https://bit.ly/opentokfb" target="_blank" rel="noreferrer">here</a>.</Card.Text>
+                <Card.Text>Questions to get to know people in varying levels of depth. <br /><br />Submit your feedback on this deck <a href="https://bit.ly/opentalkfb" target="_blank" rel="noreferrer">here</a>.</Card.Text>
               </Card.Body>
               <Button variant="info" onClick={() => {setDeck(openTalkDeck); setMode("selectGameMode")}}>Select open talk Deck</Button>
             </Card>
