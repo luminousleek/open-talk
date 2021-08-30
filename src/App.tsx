@@ -10,6 +10,7 @@ import { GridMode } from './Grid';
 import { CardTuple } from './PlayingCard';
 import { CardDeck, flatten, openTalkDeck } from "./decks";
 import { ExportDeck, importText } from './importExportFile';
+import { aboutText } from './About';
 import './App.css';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -184,34 +185,44 @@ function App() {
         <Row className="justify-content-md-center">
           <Col md="auto">
             <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Deck</Card.Header>
+              <Card.Header>Play</Card.Header>
               <Card.Body>
                 <Card.Title>open talk</Card.Title>
-                <Card.Text>Questions to get to know people in varying levels of depth. <br /><br />Submit your feedback on this deck <a href="https://bit.ly/opentalkfb" target="_blank" rel="noreferrer">here</a>.</Card.Text>
+                <Card.Text>Questions to get to know people in varying levels of depth.</Card.Text>
               </Card.Body>
-              <Button variant="info" onClick={() => {setDeck(openTalkDeck); setMode("selectGameMode")}}>Select open talk Deck</Button>
+              <Button variant="info" onClick={() => {setDeck(openTalkDeck); setMode("selectGameMode")}}>Play open talk</Button>
             </Card>
           </Col>
           {hasImported &&
           <Col md="auto">
             <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Deck</Card.Header>
+              <Card.Header>Play</Card.Header>
               <Card.Body>
                 <Card.Title>{importDeck.title}</Card.Title>
                 <Card.Text>The custom deck that you have imported previously</Card.Text>
               </Card.Body>
-              <Button variant="info" onClick={() => {setDeck(importDeck); setMode("selectGameMode")}}>Select {importDeck.title}</Button>
+              <Button variant="info" onClick={() => {setDeck(importDeck); setMode("selectGameMode")}}>Play {importDeck.title}</Button>
             </Card>
           </Col>
           }
           <Col md="auto">
             <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Deck</Card.Header>
+              <Card.Header>Import</Card.Header>
               <Card.Body>
                 <Card.Title>Import Custom Deck</Card.Title>
                 <Card.Text>Import a custom deck with your own questions! Note that there can only be one imported deck loaded at a time.</Card.Text>
               </Card.Body>
               <Button variant="info" onClick={() => {setMode("importing")}}>Import Custom Deck</Button>
+            </Card>
+          </Col>
+          <Col md="auto">
+            <Card style={{ width: '15rem', height: '20rem'}}>
+              <Card.Header>About</Card.Header>
+              <Card.Body>
+                <Card.Title>About open talk</Card.Title>
+                <Card.Text>Instructions on how to play open talk</Card.Text>
+              </Card.Body>
+              <Button variant="info" onClick={() => {setMode("about")}}>Import Custom Deck</Button>
             </Card>
           </Col>
         </Row>
@@ -357,6 +368,19 @@ function App() {
         <br />
       </Container>
     )
+  } else if (mode === "about") {
+    display = (
+      <Container>
+        <Row className="justify-content-md-center">
+          <h3>About open talk</h3>
+        </Row>
+        {aboutText}
+        <br />
+        <Row className="justify-content-center">
+          <Col md="auto"><Button onClick={() => setMode("selectDeck")}>Select another Deck</Button></Col>
+        </Row>
+      </Container>
+    );
   }
 
   return (
