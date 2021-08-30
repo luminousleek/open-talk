@@ -18,7 +18,7 @@ import withReactContent from 'sweetalert2-react-content'
 function App() {
 
   // hooks for state
-  const [mode, setMode] = React.useState("selectDeck");
+  const [mode, setMode] = React.useState("mainScreen");
   const [deck, setDeck] = React.useState<CardDeck>(openTalkDeck);
   
   const [importQns, setQn] = React.useState("Question Title|Depth Level|Question|Category");
@@ -165,21 +165,21 @@ function App() {
   let header:JSX.Element = (
     <Container fluid>
         <Row className="justify-content-md-center"><h1>open talk</h1></Row>
-        <Row className="justify-content-md-center"><h3>An online conversational tool inspired by <a href="https://www.starknicked.com" target="_blank" rel="noreferrer">smol tok</a></h3></Row>
+        <Row className="justify-content-md-center"><h3>An online conversational tool</h3></Row>
     </Container>
   );
   let modeSelectButtons:JSX.Element = (
     <Row className="justify-content-center">
       <Col md="auto"><Button onClick={() => setMode("selectGameMode")}>Select another Game Mode</Button></Col>
-      <Col md="auto"><Button onClick={() => setMode("selectDeck")}>Select another Deck</Button></Col>
+      <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
     </Row>
   )
 
-  if (mode === "selectDeck") {
+  if (mode === "mainScreen") {
     display = (
       <Container fluid>
         <Row className="justify-content-md-center">
-          <h3>Select Deck</h3>
+          <h3>Main Menu</h3>
         </Row>
         <br />
         <Row className="justify-content-md-center">
@@ -222,7 +222,7 @@ function App() {
                 <Card.Title>About open talk</Card.Title>
                 <Card.Text>Instructions on how to play open talk</Card.Text>
               </Card.Body>
-              <Button variant="info" onClick={() => {setMode("about")}}>Import Custom Deck</Button>
+              <Button variant="info" onClick={() => {setMode("about")}}>About open talk</Button>
             </Card>
           </Col>
         </Row>
@@ -262,7 +262,7 @@ function App() {
         </Row>
         <br />
         <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={() => setMode("selectDeck")}>Select another Deck</Button></Col>
+          <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
         </Row>
         <br />
       </Container>
@@ -331,13 +331,12 @@ function App() {
         </Form>
         <br />
         <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={() => setMode("selectDeck")}>Select another Deck</Button></Col>
+          <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
         </Row>
         <br />
       </Container>
     )
   } else if (mode === "imported") {
-    // const importDeckLength = flatten(checkDeck.cards).length;
     display = (
       <Container>
         <Row className="justify-content-md-center">
@@ -377,7 +376,7 @@ function App() {
         {aboutText}
         <br />
         <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={() => setMode("selectDeck")}>Select another Deck</Button></Col>
+          <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
         </Row>
       </Container>
     );
