@@ -98,16 +98,16 @@ const openTalkLove:CardTuple[] = [
 ]
 
 const openTalkFun:CardTuple[] = [
-  ['', 'Fun', 'If you had to choose, what animal will you ride on for the rest of your life?', 'Fun'],
-  ['', 'Fun', 'What is the most important item in your pencil case?', 'Fun'],
-  ['', 'Fun', 'How often do you eat your favourite food?', 'Fun'],
-  ['', 'Fun', 'What is your favourite TV series?', 'Fun'],
-  ['', 'Fun', 'What is the nicest sounding name you have ever heard?', 'Fun'],
-  ['', 'Fun', 'Given the opportunity, what is one musical instrument you would like to learn?', 'Fun'],
-  ['', 'Fun', 'If you had the chance to teleport to any country for a day, where would you go? Why?', 'Fun'],
-  ['', 'Fun', 'Describe the most dramatic moment of your life.', 'Fun'],
-  ['', 'Fun', 'If you could eliminate one food so no one could eat it ever again, what would you destroy?', 'Fun'],
-  ['', 'Fun', 'What two things do you consider yourself to be very bad at?', 'Fun']
+  ['', '\u200b', 'If you had to choose, what animal will you ride on for the rest of your life?', 'Fun'],
+  ['', '\u200b', 'What is the most important item in your pencil case?', 'Fun'],
+  ['', '\u200b', 'How often do you eat your favourite food?', 'Fun'],
+  ['', '\u200b', 'What is your favourite TV series?', 'Fun'],
+  ['', '\u200b', 'What is the nicest sounding name you have ever heard?', 'Fun'],
+  ['', '\u200b', 'Given the opportunity, what is one musical instrument you would like to learn?', 'Fun'],
+  ['', '\u200b', 'If you had the chance to teleport to any country for a day, where would you go? Why?', 'Fun'],
+  ['', '\u200b', 'Describe the most dramatic moment of your life.', 'Fun'],
+  ['', '\u200b', 'If you could eliminate one food so no one could eat it ever again, what would you destroy?', 'Fun'],
+  ['', '\u200b', 'What two things do you consider yourself to be very bad at?', 'Fun']
 ]
 
 export const openTalkDeck:CardDeck = {
