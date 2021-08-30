@@ -2,7 +2,6 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
-import { defaultCoreCipherList } from 'constants';
 
 export type CardTuple = [string, string, string, string];
 
