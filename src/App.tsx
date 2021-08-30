@@ -120,6 +120,12 @@ function App() {
         categoryCount++;
       }
       let cardTuple:CardTuple = [cardInfo[0], cardInfo[1], cardInfo[2], cardInfo[3]];
+
+      // if missing depth level, set it to 0 width space
+      if (cardTuple[1] === "") {
+        cardTuple[1] = "\u200b";
+      }
+      
       importedDeck.cards[categoryIndex].push(cardTuple);
       numCards++;
     }

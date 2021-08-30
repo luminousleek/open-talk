@@ -36,7 +36,7 @@ export class EmptyCard implements PlayingCard {
 
     constructor(title: string) {
         this.title = title;
-        this.depth = "";
+        this.depth = "\u200b";
         this.question = "";
         this.category = "";
         this.covered = false;
