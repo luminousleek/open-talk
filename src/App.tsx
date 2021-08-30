@@ -125,7 +125,7 @@ function App() {
       if (cardTuple[1] === "") {
         cardTuple[1] = "\u200b";
       }
-      
+
       importedDeck.cards[categoryIndex].push(cardTuple);
       numCards++;
     }
@@ -226,7 +226,7 @@ function App() {
               <Card.Header>About</Card.Header>
               <Card.Body>
                 <Card.Title>About open talk</Card.Title>
-                <Card.Text>Instructions on how to play open talk</Card.Text>
+                <Card.Text>Information about open talk, and instructions on how to play it</Card.Text>
               </Card.Body>
               <Button variant="info" onClick={() => {setMode("about")}}>About open talk</Button>
             </Card>
