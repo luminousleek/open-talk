@@ -2,6 +2,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { defaultCoreCipherList } from 'constants';
 
 export type CardTuple = [string, string, string, string];
 
@@ -95,12 +96,12 @@ export function DisplayCard(card: PlayingCard, onClick:() => void): JSX.Element 
 
     if (covered) {
       displayed = <Card 
-                bg='dark'
-                text='white' 
+                bg='light'
+                text='dark' 
                 style={{ width: '12rem', height: '18rem'}}>
-                <Card.Header>{category}</Card.Header>
+                <Card.Header>{depth}</Card.Header>
                 <Card.Body>
-                  <Card.Title>{depth}</Card.Title>
+                  <Card.Title>{category}</Card.Title>
                 </Card.Body>
                 {buttonEnabled && <Button
                     size='sm' 
@@ -114,22 +115,22 @@ export function DisplayCard(card: PlayingCard, onClick:() => void): JSX.Element 
                 bg='info'
                 text='white' 
                 style={{ width: '12rem', height: '18rem'}}>
-                <Card.Header>{category}</Card.Header>
+                <Card.Header>{depth}</Card.Header>
                 <Card.Body>
                   <Card.Title>{title}</Card.Title>
-                  <Card.Subtitle>{depth}</Card.Subtitle>
+                  <Card.Subtitle>{category}</Card.Subtitle>
                   <Card.Text>{question}</Card.Text>
                 </Card.Body>
               </Card>
     } else {
       displayed = <Card 
-                bg='light'
-                text='dark' 
+                bg='dark'
+                text='white' 
                 style={{ width: '12rem', height: '18rem'}}>
-                <Card.Header>{category}</Card.Header>
+                <Card.Header>{depth}</Card.Header>
                 <Card.Body>
                   <Card.Title>{title}</Card.Title>
-                  <Card.Subtitle>{depth}</Card.Subtitle>
+                  <Card.Subtitle>{category}</Card.Subtitle>
                   <Card.Text>{question}</Card.Text>
                 </Card.Body>
               </Card>
