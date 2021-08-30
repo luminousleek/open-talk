@@ -40,7 +40,7 @@ export const importText:JSX.Element = (
         <Accordion>
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
-                    Question Card Format (click to expand)
+                    Question Card Layout (click to expand)
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
@@ -68,7 +68,7 @@ export const importText:JSX.Element = (
         <Accordion>
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
-                    Sample Card Format (click to expand)
+                    Sample Card Layout (click to expand)
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
