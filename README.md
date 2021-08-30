@@ -21,5 +21,5 @@ Your own questions can be imported yay! Just follow the instructions on the thin
 - [ ] Nicer UI for importing decks
 
 ## Credits
-- smol tok is a game created by Nick Pang. Find out more at his website starknicked.com
+- smol tok is a game created by Nick Pang. Find out more at his website https://starknicked.com
 - @rohit0718 helped with testing to make sure my import deck function doesn't break
