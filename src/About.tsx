@@ -1,7 +1,19 @@
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
+import { QuestionCard, DisplayCard } from './PlayingCard';
+
+const openCard = new QuestionCard("", "Depth Level", "Question", "Category");
+openCard.uncover();
+const closedCard = new QuestionCard("", "Depth Level", "Question", "Category");
+closedCard.disableButton();
+const openSampleCard = new QuestionCard("", "Launch", "What are your pet peeves?", "Self");
+openSampleCard.uncover();
+const closedSampleCard = new QuestionCard("", "Launch", "What are your pet peeves?", "Self");
+closedSampleCard.disableButton();
 
 export const aboutText:JSX.Element = (
     <>
@@ -23,6 +35,41 @@ export const aboutText:JSX.Element = (
                             <li>Repeat for the next person</li>
                         </ol>
                         <p>open talk is best played on a desktop or laptop, and is not optimised for mobile screens.</p>
+                    </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+        </Accordion>
+        <br />
+        <Accordion>
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="0">
+                    open talk Cards
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                        <p>Cards in open talk have three components - Question, Category, and Depth Level</p>
+                        <p>They are displayed on the card in the following manner:</p>
+                        <Row className="justify-content-center">
+                            <Col md="auto">
+                                {DisplayCard(openCard, () => {})}
+                                <p>Front of card</p>
+                            </Col>
+                            <Col md="auto">
+                                {DisplayCard(closedCard, () => {})}
+                                <p>Back of card</p>
+                            </Col>
+                        </Row>
+                        <p>In the card below, "What are your pet peeves?" is the Question, "Self" is the Category and "Launch" is the Depth Level</p>
+                        <Row className="justify-content-center">
+                            <Col md="auto">
+                                {DisplayCard(openSampleCard, () => {})}
+                                <p>Front of card</p>
+                            </Col>
+                            <Col md="auto">
+                                {DisplayCard(closedSampleCard, () => {})}
+                                <p>Back of card</p>
+                            </Col>
+                        </Row>
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
