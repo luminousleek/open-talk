@@ -22,6 +22,7 @@ export const aboutText:JSX.Element = (
                             <li>Ask and answer any follow-up questions, if any</li>
                             <li>Repeat for the next person</li>
                         </ol>
+                        <p>open talk is best played on a desktop or laptop, and is not optimised for mobile screens.</p>
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
@@ -72,10 +73,33 @@ export const aboutText:JSX.Element = (
         <Accordion>
             <Card>
                 <Accordion.Toggle as={Card.Header} eventKey="0">
+                    Custom Decks
+                </Accordion.Toggle>
+                <Accordion.Collapse eventKey="0">
+                    <Card.Body>
+                        <p>
+                            Ever had burning questions to ask your friends, or inside jokes and references you want to put in your questions?
+                            open talk allows you to create your own questions and decks with up to 10 categories!
+                        </p>
+                        <p>Instructions on how to do so can be found in the Import Custom Deck segment</p>
+                    </Card.Body>
+                </Accordion.Collapse>
+            </Card>
+        </Accordion>
+        <br />
+        <Accordion>
+            <Card>
+                <Accordion.Toggle as={Card.Header} eventKey="0">
                     About this website
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
+                        <p>open talk is open in three senses of the word:</p>
+                        <ol>
+                            <li>It promotes openness and vulnerability when answering questions and sharing about each other</li>
+                            <li>It is open in allowing custom decks and questions to be played with on this website</li>
+                            <li>The code of this website is open-source and found in the link below</li>
+                        </ol>
                         <p>open talk is inspired by <a href="https://www.starknicked.com" target="_blank" rel="noreferrer">smol tok</a>, created by Nick Pang.</p>
                         <p>
                             open talk is distributed under the <a href="https://www.gnu.org/licenses/gpl-3.0.en.html" target="_blank" rel="noreferrer">GNU General Public License v3</a>. 
