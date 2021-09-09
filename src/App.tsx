@@ -18,6 +18,12 @@ import withReactContent from 'sweetalert2-react-content'
 
 function App() {
 
+  // constants
+  const MAX_CATEGORIES:number = 10;
+  const MAX_DECK_TITLE_LENGTH:number = 30;
+  const MAX_DECK_CHAR_LENGTH:number = 30000;
+  const MIN_GRID_MODE_CARDS:number = 24;
+
   // hooks for state
   const [mode, setMode] = React.useState<AppModes>(AppModes.MainScreen);
   const [deck, setDeck] = React.useState<CardDeck>(openTalkDeck);
@@ -108,8 +114,8 @@ function App() {
       if (categoryMap.has(category)) {
         categoryIndex = categoryMap.get(category);
       } else {
-        // limit number of categories to 10
-        if (categoryCount > 9) {
+        // limit number of categories to MAX_CATEGORIES
+        if (categoryCount > MAX_CATEGORIES - 1) {
           cardString = cardString + " - Exceeded Maximum Number of Categories";
           errors.push(cardString);
           continue;
@@ -204,6 +210,12 @@ function App() {
     </Row>
   )
 
+  let newGameButton:JSX.Element = (
+    <Row className="justify-content-center">
+      <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
+    </Row>
+  )
+
   switch (mode as AppModes) {
     case AppModes.MainScreen: {
       display = (
@@ -246,8 +258,8 @@ function App() {
                 onClick = {() => {setMode(AppModes.Categories)}} buttonText = "Select Categories Mode" disableButton = {false}/>
             </Col>
             <Col md="auto">
-              <MenuCard header = "Mode" title = "Grid" cardText = "Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least 24 cards in the deck."
-                onClick = {() => {setMode(AppModes.Grid)}} buttonText = "Select Grid Mode" disableButton = {(flatten(deck.cards).length < 24)}/>
+              <MenuCard header = "Mode" title = "Grid" cardText = {"Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least " + MIN_GRID_MODE_CARDS + " cards in the deck."}
+                onClick = {() => {setMode(AppModes.Grid)}} buttonText = "Select Grid Mode" disableButton = {(flatten(deck.cards).length < MIN_GRID_MODE_CARDS)}/>
             </Col>
           </Row>
           <br />
@@ -266,9 +278,7 @@ function App() {
           {forceRender && <CategoriesMode deck={deck} />}
           {forceRender2 && <CategoriesMode deck={deck} />}
           <br />
-          <Row className="justify-content-center">
-            <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
-          </Row>
+          {newGameButton}
           <br />
           {modeSelectButtons}
           <br />
@@ -285,9 +295,7 @@ function App() {
           {forceRender && <GridMode deck={deck} />}
           {forceRender2 && <GridMode deck={deck} />}
           <br />
-          <Row className="justify-content-center">
-            <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
-          </Row>
+          {newGameButton}
           <br />
           {modeSelectButtons}
           <br />
@@ -303,13 +311,13 @@ function App() {
           <br />
           <Form id="importForm" onSubmit={handleImport}>
             <Form.Group controlId="import.Title">
-              <Form.Label>Input a title for your Custom Deck (max 30 characters)</Form.Label>
-              <Form.Control as="input" onChange={e => setTitle(e.target.value)} required defaultValue={importTitle} maxLength={30}/>
+              <Form.Label>Input a title for your Custom Deck (max {MAX_DECK_TITLE_LENGTH} characters)</Form.Label>
+              <Form.Control as="input" onChange={e => setTitle(e.target.value)} required defaultValue={importTitle} maxLength={MAX_DECK_TITLE_LENGTH}/>
             </Form.Group>
             
             <Form.Group controlId="import.Questions">
-              <Form.Label>Input Custom Question Cards below (max 30,000 characters)</Form.Label>
-              <Form.Control as="textarea" rows={15} onChange={e => setQn(e.target.value)} required defaultValue={importQns} maxLength={30000}/>
+              <Form.Label>Input Custom Question Cards below (max {MAX_DECK_CHAR_LENGTH} characters)</Form.Label>
+              <Form.Control as="textarea" rows={15} onChange={e => setQn(e.target.value)} required defaultValue={importQns} maxLength={MAX_DECK_CHAR_LENGTH}/>
             </Form.Group>
             <Button type="submit">Import Deck</Button>
           </Form>
