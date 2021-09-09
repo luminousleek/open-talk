@@ -2,23 +2,30 @@ import React from 'react';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button'
 import Form from 'react-bootstrap/Form'
+import { AppModes } from './AppModes';
 import { CategoriesMode } from './Categories';
 import { GridMode } from './Grid';
 import { CardTuple } from './PlayingCard';
-import { CardDeck, flatten, openTalkDeck } from "./decks";
+import { CardDeck, openTalkDeck, flatten } from "./decks";
 import { ExportDeck, importText } from './importExportFile';
 import { aboutText } from './About';
+import { MenuCard } from './MenuCard';
 import './App.css';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
 
 function App() {
 
+  // constants
+  const MAX_CATEGORIES:number = 10;
+  const MAX_DECK_TITLE_LENGTH:number = 30;
+  const MAX_DECK_CHAR_LENGTH:number = 30000;
+  const MIN_GRID_MODE_CARDS:number = 24;
+
   // hooks for state
-  const [mode, setMode] = React.useState("mainScreen");
+  const [mode, setMode] = React.useState<AppModes>(AppModes.MainScreen);
   const [deck, setDeck] = React.useState<CardDeck>(openTalkDeck);
   
   const [importQns, setQn] = React.useState("Question Title|Depth Level|Question|Category");
@@ -107,8 +114,8 @@ function App() {
       if (categoryMap.has(category)) {
         categoryIndex = categoryMap.get(category);
       } else {
-        // limit number of categories to 10
-        if (categoryCount > 9) {
+        // limit number of categories to MAX_CATEGORIES
+        if (categoryCount > MAX_CATEGORIES - 1) {
           cardString = cardString + " - Exceeded Maximum Number of Categories";
           errors.push(cardString);
           continue;
@@ -146,7 +153,7 @@ function App() {
     } else {
       setValidImport(false);
     }
-    setMode("imported");
+    setMode(AppModes.Imported);
   }
 
   function handleNewGame() {
@@ -168,225 +175,206 @@ function App() {
   }
 
   let display:JSX.Element = <h1>Hello World!</h1>
+
   let header:JSX.Element = (
     <Container fluid>
         <Row className="justify-content-md-center"><h1>open talk</h1></Row>
         <Row className="justify-content-md-center"><h3>An online conversational tool</h3></Row>
     </Container>
   );
-  let modeSelectButtons:JSX.Element = (
-    <Row className="justify-content-center">
-      <Col md="auto"><Button onClick={() => setMode("selectGameMode")}>Select another Game Mode</Button></Col>
-      <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
+
+  function ScreenHeader(prop: {title:string}):JSX.Element {
+    return (
+      <Row className="justify-content-md-center">
+        <h3>{prop.title}</h3>
+      </Row>
+    )
+  }
+
+  let deckHeader:JSX.Element = (
+    <Row className="justify-content-md-center">
+      <h4>Deck Selected: {deck.title}</h4>
     </Row>
   )
 
-  if (mode === "mainScreen") {
-    display = (
-      <Container fluid>
-        <Row className="justify-content-md-center">
-          <h3>Main Menu</h3>
-        </Row>
-        <br />
-        <Row className="justify-content-md-center">
-          <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Play</Card.Header>
-              <Card.Body>
-                <Card.Title>open talk</Card.Title>
-                <Card.Text>Questions to get to know people in varying levels of depth.</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setDeck(openTalkDeck); setMode("selectGameMode")}}>Play open talk</Button>
-            </Card>
-          </Col>
-          {hasImported &&
-          <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Play</Card.Header>
-              <Card.Body>
-                <Card.Title>{importDeck.title}</Card.Title>
-                <Card.Text>The custom deck that you have imported previously</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setDeck(importDeck); setMode("selectGameMode")}}>Play {importDeck.title}</Button>
-            </Card>
-          </Col>
+  let modeSelectButtons:JSX.Element = (
+    <Row className="justify-content-center">
+      <Col md="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select another Game Mode</Button></Col>
+      <Col md="auto"><Button onClick={() => setMode(AppModes.MainScreen)}>Return to the Main Menu</Button></Col>
+    </Row>
+  )
+
+  let mainMenuButton:JSX.Element = (
+    <Row className="justify-content-center">
+      <Col md="auto"><Button onClick={() => setMode(AppModes.MainScreen)}>Return to the Main Menu</Button></Col>
+    </Row>
+  )
+
+  let newGameButton:JSX.Element = (
+    <Row className="justify-content-center">
+      <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
+    </Row>
+  )
+
+  switch (mode as AppModes) {
+    case AppModes.MainScreen: {
+      display = (
+        <Container fluid>
+          <ScreenHeader title = "Main Menu" />
+          <br />
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <MenuCard header = "Play" title = "open talk" cardText = "Questions to get to know people in varying levels of depth."
+                onClick = {() => {setDeck(openTalkDeck); setMode(AppModes.SelectGameMode)}} buttonText = "Play open talk" disableButton = {false}/>
+            </Col>
+            {hasImported &&
+            <Col md="auto">
+              <MenuCard header = "Play" title = {importDeck.title} cardText = "The custom deck that you have imported previously"
+                onClick = {() => {setDeck(importDeck); setMode(AppModes.SelectGameMode)}} buttonText = {"Play  " + importDeck.title} disableButton = {false}/>
+            </Col>
+            }
+            <Col md="auto">
+              <MenuCard header = "Import" title = "Import Custom Deck" cardText = "Import a custom deck with your own questions! Note that there can only be one imported deck loaded at a time." 
+                onClick = {() => {setMode(AppModes.Importing)}} buttonText = "Import Custom Deck" disableButton = {false}/>
+            </Col>
+            <Col md="auto">
+              <MenuCard header = "About" title = "About open talk" cardText = "Information about open talk, and instructions on how to play it"
+                onClick = {() => {setMode(AppModes.About)}} buttonText = "About open talk" disableButton = {false}/>
+            </Col>
+          </Row>
+        </Container>
+      )
+      break;
+    }
+    case AppModes.SelectGameMode: {
+      display = (
+        <Container fluid>
+          <ScreenHeader title = "Select Playing Mode" />
+          {deckHeader}
+          <br />
+          <Row className="justify-content-md-center">
+            <Col md="auto">
+              <MenuCard header = "Mode" title = "Categories" cardText = "Deck is split into its categories, choose a card from any of the categories"
+                onClick = {() => {setMode(AppModes.Categories)}} buttonText = "Select Categories Mode" disableButton = {false}/>
+            </Col>
+            <Col md="auto">
+              <MenuCard header = "Mode" title = "Grid" cardText = {"Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least " + MIN_GRID_MODE_CARDS + " cards in the deck."}
+                onClick = {() => {setMode(AppModes.Grid)}} buttonText = "Select Grid Mode" disableButton = {(flatten(deck.cards).length < MIN_GRID_MODE_CARDS)}/>
+            </Col>
+          </Row>
+          <br />
+          {mainMenuButton}
+          <br />
+        </Container>
+      )
+      break;
+    } 
+    case AppModes.Categories: {
+      display = (
+        <Container fluid>
+          <ScreenHeader title = "Categories Mode" />
+          {deckHeader}
+          <br />
+          {forceRender && <CategoriesMode deck={deck} />}
+          {forceRender2 && <CategoriesMode deck={deck} />}
+          <br />
+          {newGameButton}
+          <br />
+          {modeSelectButtons}
+          <br />
+        </Container>
+      )
+      break;
+    } 
+    case AppModes.Grid: {
+      display = (
+        <Container fluid>
+          <ScreenHeader title = "Grid Mode" />
+          {deckHeader}
+          <br />
+          {forceRender && <GridMode deck={deck} />}
+          {forceRender2 && <GridMode deck={deck} />}
+          <br />
+          {newGameButton}
+          <br />
+          {modeSelectButtons}
+          <br />
+        </Container>
+      )
+      break;
+    } 
+    case AppModes.Importing: {
+      display = (
+        <Container>
+          <ScreenHeader title = "Import Custom Deck" />
+          {importText}
+          <br />
+          <Form id="importForm" onSubmit={handleImport}>
+            <Form.Group controlId="import.Title">
+              <Form.Label>Input a title for your Custom Deck (max {MAX_DECK_TITLE_LENGTH} characters)</Form.Label>
+              <Form.Control as="input" onChange={e => setTitle(e.target.value)} required defaultValue={importTitle} maxLength={MAX_DECK_TITLE_LENGTH}/>
+            </Form.Group>
+            
+            <Form.Group controlId="import.Questions">
+              <Form.Label>Input Custom Question Cards below (max {MAX_DECK_CHAR_LENGTH} characters)</Form.Label>
+              <Form.Control as="textarea" rows={15} onChange={e => setQn(e.target.value)} required defaultValue={importQns} maxLength={MAX_DECK_CHAR_LENGTH}/>
+            </Form.Group>
+            <Button type="submit">Import Deck</Button>
+          </Form>
+          <br />
+          {mainMenuButton}
+          <br />
+        </Container>
+      )
+      break;
+    } 
+    case AppModes.Imported: {
+      display = (
+        <Container>
+          <ScreenHeader title = "Custom Deck Import Results" />
+          {isValidImport &&
+            <div>
+              <h5>{importDeck.title} imported</h5>
+              <p>The following cards were imported. You can copy the following text and paste it into a file.</p>
+              <ExportDeck deck={importDeck} />
+            </div>}
+            {!isValidImport &&
+            <div>
+              <h5>{importDeck.title} not imported</h5>
+              <p>None of the question cards typed in were imported successfully. Please return to the import deck screen and try again.</p>
+            </div>}
+          {hasImportError && 
+            <div>
+              <p>The following question cards were not imported: </p>
+              <pre>{importErrorString}</pre>
+            </div>
           }
-          <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Import</Card.Header>
-              <Card.Body>
-                <Card.Title>Import Custom Deck</Card.Title>
-                <Card.Text>Import a custom deck with your own questions! Note that there can only be one imported deck loaded at a time.</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setMode("importing")}}>Import Custom Deck</Button>
-            </Card>
-          </Col>
-          <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>About</Card.Header>
-              <Card.Body>
-                <Card.Title>About open talk</Card.Title>
-                <Card.Text>Information about open talk, and instructions on how to play it</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setMode("about")}}>About open talk</Button>
-            </Card>
-          </Col>
-        </Row>
-      </Container>
-    )
-  } else if (mode === "selectGameMode") {
-    display = (
-      <Container fluid>
-        <Row className="justify-content-md-center">
-          <h3>Select Playing Mode</h3>
-        </Row>
-        <Row className="justify-content-md-center">
-          <h4>Deck Selected: {deck.title}</h4>
-        </Row>
-        <br />
-        <Row className="justify-content-md-center">
-          <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Mode</Card.Header>
-              <Card.Body>
-                <Card.Title>Categories</Card.Title>
-                <Card.Text>Deck is split into its categories, choose a card from any of the categories</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => setMode("categories")}>Select Categories Mode</Button>
-            </Card>
-          </Col>
-          <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Mode</Card.Header>
-              <Card.Body>
-                <Card.Title>Grid</Card.Title>
-                <Card.Text>Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least 24 cards in the deck.</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => setMode("grid")} disabled={(flatten(deck.cards).length < 24)}>Select Grid Mode</Button>
-            </Card>
-          </Col>
-        </Row>
-        <br />
-        <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
-        </Row>
-        <br />
-      </Container>
-    )
-  } else if (mode === "categories") {
-    display = (
-      <Container fluid>
-        <Row className="justify-content-md-center">
-          <h3>Categories Mode</h3>
-        </Row>
-        <Row className="justify-content-md-center">
-          <h4>Deck Selected: {deck.title}</h4>  
-        </Row>
-        <br />
-        {forceRender && <CategoriesMode deck={deck} />}
-        {forceRender2 && <CategoriesMode deck={deck} />}
-        <br />
-        <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
-        </Row>
-        <br />
-        {modeSelectButtons}
-        <br />
-      </Container>
-    )
-  } else if (mode === "grid") {
-    display = (
-      <Container fluid>
-        <Row className="justify-content-md-center">
-            <h3>Grid Mode</h3>
-        </Row>
-        < Row className="justify-content-md-center">
-          <h4>Deck Selected: {deck.title}</h4>
-        </Row>
-        <br />
-        {forceRender && <GridMode deck={deck} />}
-        {forceRender2 && <GridMode deck={deck} />}
-        <br />
-        <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
-        </Row>
-        <br />
-        {modeSelectButtons}
-        <br />
-      </Container>
-    )
-  } else if (mode === "importing") {
-    display = (
-      <Container>
-        <Row className="justify-content-md-center">
-          <h3>Import Custom Deck</h3>
-        </Row>
-        {importText}
-        <br />
-        <Form id="importForm" onSubmit={handleImport}>
-          <Form.Group controlId="import.Title">
-            <Form.Label>Input a title for your Custom Deck (max 30 characters)</Form.Label>
-            <Form.Control as="input" onChange={e => setTitle(e.target.value)} required defaultValue={importTitle} maxLength={30}/>
-          </Form.Group>
-          
-          <Form.Group controlId="import.Questions">
-            <Form.Label>Input Custom Question Cards below (max 30,000 characters)</Form.Label>
-            <Form.Control as="textarea" rows={15} onChange={e => setQn(e.target.value)} required defaultValue={importQns} maxLength={30000}/>
-          </Form.Group>
-          <Button type="submit">Import Deck</Button>
-        </Form>
-        <br />
-        <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
-        </Row>
-        <br />
-      </Container>
-    )
-  } else if (mode === "imported") {
-    display = (
-      <Container>
-        <Row className="justify-content-md-center">
-          <h3>Custom Deck Import Results</h3>
-        </Row>
-        {isValidImport &&
-          <div>
-            <h5>{importDeck.title} imported</h5>
-            <p>The following cards were imported. You can copy the following text and paste it into a file.</p>
-            <ExportDeck deck={importDeck} />
-          </div>}
-          {!isValidImport &&
-          <div>
-            <h5>{importDeck.title} not imported</h5>
-            <p>None of the question cards typed in were imported successfully. Please return to the import deck screen and try again.</p>
-          </div>}
-        {hasImportError && 
-          <div>
-            <p>The following question cards were not imported: </p>
-            <pre>{importErrorString}</pre>
-          </div>
-        }
-        <br />
-        <Row className="justify-content-center">
-          {isValidImport && <Col md="auto"><Button onClick={() => setMode("selectGameMode")}>Select Game Mode</Button></Col>}
-          <Col md="auto"><Button onClick={() => setMode("importing")}>Return to Import Deck screen</Button></Col>
-        </Row>
-        <br />
-      </Container>
-    )
-  } else if (mode === "about") {
-    display = (
-      <Container>
-        <Row className="justify-content-md-center">
-          <h3>About open talk</h3>
-        </Row>
-        {aboutText}
-        <br />
-        <Row className="justify-content-center">
-          <Col md="auto"><Button onClick={() => setMode("mainScreen")}>Return to the Main Menu</Button></Col>
-        </Row>
-      </Container>
-    );
+          <br />
+          <Row className="justify-content-center">
+            {isValidImport && <Col md="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select Game Mode</Button></Col>}
+            <Col md="auto"><Button onClick={() => setMode(AppModes.Importing)}>Return to Import Deck screen</Button></Col>
+          </Row>
+          <br />
+        </Container>
+      )
+      break;
+    } 
+    case AppModes.About: {
+      display = (
+        <Container>
+          <ScreenHeader title = "About open talk" />
+          {aboutText}
+          <br />
+          {mainMenuButton}
+        </Container>
+      );
+      break;
+    }
+    default: {
+      display = <h1>Something went wrong!</h1>
+    }
   }
+
 
   return (
     <div>
