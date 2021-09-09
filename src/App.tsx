@@ -177,6 +177,20 @@ function App() {
     </Container>
   );
 
+  function ScreenHeader(prop: {title:string}):JSX.Element {
+    return (
+      <Row className="justify-content-md-center">
+        <h3>{prop.title}</h3>
+      </Row>
+    )
+  }
+
+  let deckHeader:JSX.Element = (
+    <Row className="justify-content-md-center">
+      <h4>Deck Selected: {deck.title}</h4>
+    </Row>
+  )
+
   let modeSelectButtons:JSX.Element = (
     <Row className="justify-content-center">
       <Col md="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select another Game Mode</Button></Col>
@@ -194,9 +208,7 @@ function App() {
     case AppModes.MainScreen: {
       display = (
         <Container fluid>
-          <Row className="justify-content-md-center">
-            <h3>Main Menu</h3>
-          </Row>
+          <ScreenHeader title = "Main Menu" />
           <br />
           <Row className="justify-content-md-center">
             <Col md="auto">
@@ -225,12 +237,8 @@ function App() {
     case AppModes.SelectGameMode: {
       display = (
         <Container fluid>
-          <Row className="justify-content-md-center">
-            <h3>Select Playing Mode</h3>
-          </Row>
-          <Row className="justify-content-md-center">
-            <h4>Deck Selected: {deck.title}</h4>
-          </Row>
+          <ScreenHeader title = "Select Playing Mode" />
+          {deckHeader}
           <br />
           <Row className="justify-content-md-center">
             <Col md="auto">
@@ -252,12 +260,8 @@ function App() {
     case AppModes.Categories: {
       display = (
         <Container fluid>
-          <Row className="justify-content-md-center">
-            <h3>Categories Mode</h3>
-          </Row>
-          <Row className="justify-content-md-center">
-            <h4>Deck Selected: {deck.title}</h4>  
-          </Row>
+          <ScreenHeader title = "Categories Mode" />
+          {deckHeader}
           <br />
           {forceRender && <CategoriesMode deck={deck} />}
           {forceRender2 && <CategoriesMode deck={deck} />}
@@ -275,12 +279,8 @@ function App() {
     case AppModes.Grid: {
       display = (
         <Container fluid>
-          <Row className="justify-content-md-center">
-              <h3>Grid Mode</h3>
-          </Row>
-          < Row className="justify-content-md-center">
-            <h4>Deck Selected: {deck.title}</h4>
-          </Row>
+          <ScreenHeader title = "Grid Mode" />
+          {deckHeader}
           <br />
           {forceRender && <GridMode deck={deck} />}
           {forceRender2 && <GridMode deck={deck} />}
@@ -298,9 +298,7 @@ function App() {
     case AppModes.Importing: {
       display = (
         <Container>
-          <Row className="justify-content-md-center">
-            <h3>Import Custom Deck</h3>
-          </Row>
+          <ScreenHeader title = "Import Custom Deck" />
           {importText}
           <br />
           <Form id="importForm" onSubmit={handleImport}>
@@ -325,9 +323,7 @@ function App() {
     case AppModes.Imported: {
       display = (
         <Container>
-          <Row className="justify-content-md-center">
-            <h3>Custom Deck Import Results</h3>
-          </Row>
+          <ScreenHeader title = "Custom Deck Import Results" />
           {isValidImport &&
             <div>
               <h5>{importDeck.title} imported</h5>
@@ -358,9 +354,7 @@ function App() {
     case AppModes.About: {
       display = (
         <Container>
-          <Row className="justify-content-md-center">
-            <h3>About open talk</h3>
-          </Row>
+          <ScreenHeader title = "About open talk" />
           {aboutText}
           <br />
           {mainMenuButton}
