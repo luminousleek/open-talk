@@ -73,7 +73,7 @@ const openTalkClan:CardTuple[] = [
 
 const openTalkLove:CardTuple[] = [
   ['', 'Launch', 'What is your love language?', 'Love'],
-  ['', 'Launch', 'What is hte first thing you notice when you meet a person?', 'Love'],
+  ['', 'Launch', 'What is the first thing you notice when you meet a person?', 'Love'],
   ['', 'Launch', 'What does love mean to you?', 'Love'],
   ['', 'Launch', 'How ready for a relationship are you?', 'Love'],
   ['', 'Launch', 'What would you feel if you had to break up or get married tomorrow?', 'Love'],
