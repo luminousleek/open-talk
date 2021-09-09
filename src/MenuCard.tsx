@@ -1,7 +1,7 @@
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 
-export function MenuCard(prop:{header: string, title: string, cardText: string, buttonText: string, onClick:() => void}): JSX.Element {
+export function MenuCard(prop:{header: string, title: string, cardText: string, buttonText: string, onClick:() => void, disableButton:boolean}): JSX.Element {
     
     const card = (
         <Card style={{ width: '15rem', height: '20rem'}}>
@@ -10,7 +10,7 @@ export function MenuCard(prop:{header: string, title: string, cardText: string, 
             <Card.Title>{prop.title}</Card.Title>
             <Card.Text>{prop.cardText}</Card.Text>
             </Card.Body>
-            <Button variant="info" onClick={prop.onClick}>{prop.buttonText}</Button>
+            <Button variant="info" onClick={prop.onClick} disabled = {prop.disableButton}>{prop.buttonText} </Button>
         </Card>
     )
     return card;
