@@ -11,6 +11,7 @@ import { CardTuple } from './PlayingCard';
 import { CardDeck, flatten, openTalkDeck } from "./decks";
 import { ExportDeck, importText } from './importExportFile';
 import { aboutText } from './About';
+import { MenuCard } from './MenuCard';
 import './App.css';
 import Swal from 'sweetalert2'
 import withReactContent from 'sweetalert2-react-content'
@@ -190,46 +191,22 @@ function App() {
         <br />
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Play</Card.Header>
-              <Card.Body>
-                <Card.Title>open talk</Card.Title>
-                <Card.Text>Questions to get to know people in varying levels of depth.</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setDeck(openTalkDeck); setMode("selectGameMode")}}>Play open talk</Button>
-            </Card>
+            <MenuCard header = "Play" title = "open talk" cardText = "Questions to get to know people in varying levels of depth."
+              onClick = {() => {setDeck(openTalkDeck); setMode("selectGameMode")}} buttonText = "Play open talk" />
           </Col>
           {hasImported &&
           <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Play</Card.Header>
-              <Card.Body>
-                <Card.Title>{importDeck.title}</Card.Title>
-                <Card.Text>The custom deck that you have imported previously</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setDeck(importDeck); setMode("selectGameMode")}}>Play {importDeck.title}</Button>
-            </Card>
+            <MenuCard header = "Play" title = {importDeck.title} cardText = "The custom deck that you have imported previously"
+              onClick = {() => {setDeck(importDeck); setMode("selectGameMode")}} buttonText = {"Play  " + importDeck.title} />
           </Col>
           }
           <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Import</Card.Header>
-              <Card.Body>
-                <Card.Title>Import Custom Deck</Card.Title>
-                <Card.Text>Import a custom deck with your own questions! Note that there can only be one imported deck loaded at a time.</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setMode("importing")}}>Import Custom Deck</Button>
-            </Card>
+            <MenuCard header = "Import" title = "Import Custom Deck" cardText = "Import a custom deck with your own questions! Note that there can only be one imported deck loaded at a time."
+              onClick = {() => {setMode("importing")}} buttonText = "Import Custom Deck" />
           </Col>
           <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>About</Card.Header>
-              <Card.Body>
-                <Card.Title>About open talk</Card.Title>
-                <Card.Text>Information about open talk, and instructions on how to play it</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => {setMode("about")}}>About open talk</Button>
-            </Card>
+            <MenuCard header = "About" title = "About open talk" cardText = "Information about open talk, and instructions on how to play it"
+              onClick = {() => {setMode("about")}} buttonText = "About open talk" />
           </Col>
         </Row>
       </Container>
@@ -246,24 +223,12 @@ function App() {
         <br />
         <Row className="justify-content-md-center">
           <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Mode</Card.Header>
-              <Card.Body>
-                <Card.Title>Categories</Card.Title>
-                <Card.Text>Deck is split into its categories, choose a card from any of the categories</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => setMode("categories")}>Select Categories Mode</Button>
-            </Card>
+            <MenuCard header = "Mode" title = "Categories" cardText = "Deck is split into its categories, choose a card from any of the categories"
+              onClick = {() => {setMode("categories")}} buttonText = "Select Categories Mode" />
           </Col>
           <Col md="auto">
-            <Card style={{ width: '15rem', height: '20rem'}}>
-              <Card.Header>Mode</Card.Header>
-              <Card.Body>
-                <Card.Title>Grid</Card.Title>
-                <Card.Text>Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least 24 cards in the deck.</Card.Text>
-              </Card.Body>
-              <Button variant="info" onClick={() => setMode("grid")} disabled={(flatten(deck.cards).length < 24)}>Select Grid Mode</Button>
-            </Card>
+            <MenuCard header = "Mode" title = "Grid" cardText = "Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least 24 cards in the deck."
+              onClick = {() => {setMode("grid")}} buttonText = "Select Grid Mode" />
           </Col>
         </Row>
         <br />
