@@ -39,7 +39,7 @@ const openTalkSelf:CardTuple[] = [
   ['', 'Dive', 'When have you felt like your hopes were dashed?', 'Self'],
   ['', 'Dive', 'When was the last time you felt frustrated?', 'Self'],
   ['', 'Dive', 'When was the last time you felt insecure?', 'Self'],
-  ['', 'Dive', 'What makes you who are?', 'Self'],
+  ['', 'Dive', 'What makes you who you are?', 'Self'],
   ['', 'Dive', 'What is one thing you find difficult to compromise on?', 'Self']
 ];
 
