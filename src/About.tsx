@@ -34,7 +34,6 @@ export const aboutText:JSX.Element = (
                             <li>Ask and answer any follow-up questions, if any</li>
                             <li>Repeat for the next person</li>
                         </ol>
-                        <p>open talk is best played on a desktop or laptop, and is not optimised for mobile screens.</p>
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
