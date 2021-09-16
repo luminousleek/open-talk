@@ -258,7 +258,7 @@ function App() {
                 onClick = {() => {setMode(AppModes.Categories)}} buttonText = "Select Categories Mode" disableButton = {false}/>
             </Col>
             <Col xs="auto">
-              <MenuCard header = "Mode" title = "Grid" cardText = {"Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least " + MIN_GRID_MODE_CARDS + " cards in the deck."}
+              <MenuCard header = "Mode" title = "Grid" cardText = {"Cards are arranged into a 5 by 5 grid.\n\nRequires at least " + MIN_GRID_MODE_CARDS + " cards in the deck. Best played in landscape orientation."}
                 onClick = {() => {setMode(AppModes.Grid)}} buttonText = "Select Grid Mode" disableButton = {(flatten(deck.cards).length < MIN_GRID_MODE_CARDS)}/>
             </Col>
           </Row>
@@ -340,7 +340,7 @@ function App() {
             </div>}
             {!isValidImport &&
             <div>
-              <h5>{importDeck.title} not imported</h5>
+              <h5>Custom Deck not imported</h5>
               <p>None of the question cards typed in were imported successfully. Please return to the import deck screen and try again.</p>
             </div>}
           {hasImportError && 
