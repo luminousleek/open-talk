@@ -1,5 +1,7 @@
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { CSSProperties } from 'react';
@@ -137,4 +139,27 @@ export function DisplayCard(card: PlayingCard, onClick:() => void): JSX.Element 
               </Card>
     }
     return displayed;
+}
+
+export function AccordionCardDisplay(frontCard:PlayingCard, backCard:PlayingCard):JSX.Element {
+  return (
+    <>
+      <Row>
+          <Col className="d-flex justify-content-center">
+                  {DisplayCard(frontCard, () => {})}
+          </Col>
+          <Col className="d-flex justify-content-center">
+                  {DisplayCard(backCard, () => {})}
+          </Col>
+      </Row>
+      <Row>
+        <Col className="d-flex justify-content-center">
+          <p>Front of card</p>
+        </Col>
+        <Col className="d-flex justify-content-center">
+          <p>Back of card</p>
+        </Col>
+      </Row>
+    </>
+  )
 }
