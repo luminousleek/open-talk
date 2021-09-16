@@ -1,10 +1,8 @@
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import { CardTuple, QuestionCard, DisplayCard, AccordionCardDisplay } from './PlayingCard';
+import { CardTuple, QuestionCard, AccordionCardDisplay } from './PlayingCard';
 import { CardDeck } from "./decks";
 
 export function ExportDeck(prop: {deck:CardDeck}): JSX.Element {

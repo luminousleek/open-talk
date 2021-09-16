@@ -1,10 +1,8 @@
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import { QuestionCard, DisplayCard, PlayingCard, AccordionCardDisplay } from './PlayingCard';
+import { QuestionCard, AccordionCardDisplay } from './PlayingCard';
 
 const openCard = new QuestionCard("", "Depth Level", "Question", "Category");
 openCard.uncover();
