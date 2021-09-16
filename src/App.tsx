@@ -351,8 +351,11 @@ function App() {
           }
           <br />
           <Row className="justify-content-center">
-            {isValidImport && <Col md="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select Game Mode</Button></Col>}
-            <Col md="auto"><Button onClick={() => setMode(AppModes.Importing)}>Return to Import Deck screen</Button></Col>
+            {isValidImport && <Col xs="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select Game Mode</Button></Col>}
+          </Row>
+          <br />
+          <Row className="justify-content-center">
+            <Col xs="auto"><Button onClick={() => setMode(AppModes.Importing)}>Return to Import Deck screen</Button></Col>
           </Row>
           <br />
         </Container>
