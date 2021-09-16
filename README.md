@@ -17,7 +17,7 @@ Your own questions can be imported yay! Just follow the instructions on the thin
 - sweetalert2 was used to make the nice warning popup
 
 ## Things to do
-- [ ] Support for mobile screens
+- [X] Support for mobile screens
 - [ ] Nicer UI for importing decks
 
 ## Credits
