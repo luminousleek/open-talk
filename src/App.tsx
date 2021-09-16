@@ -178,41 +178,41 @@ function App() {
 
   let header:JSX.Element = (
     <Container fluid>
-        <Row className="justify-content-md-center"><h1>open talk</h1></Row>
-        <Row className="justify-content-md-center"><h3>An online conversational tool</h3></Row>
+        <Row className="justify-content-center"><h1>open talk</h1></Row>
+        <Row className="justify-content-center"><h3>An online conversational tool</h3></Row>
     </Container>
   );
 
   function ScreenHeader(prop: {title:string}):JSX.Element {
     return (
-      <Row className="justify-content-md-center">
+      <Row className="justify-content-center">
         <h3>{prop.title}</h3>
       </Row>
     )
   }
 
   let deckHeader:JSX.Element = (
-    <Row className="justify-content-md-center">
+    <Row className="justify-content-center">
       <h4>Deck Selected: {deck.title}</h4>
     </Row>
   )
 
   let modeSelectButtons:JSX.Element = (
-    <Row className="justify-content-center">
-      <Col md="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select another Game Mode</Button></Col>
-      <Col md="auto"><Button onClick={() => setMode(AppModes.MainScreen)}>Return to the Main Menu</Button></Col>
+    <Row className="justify-content-center" xs={2}>
+      <Col xs="auto"><Button onClick={() => setMode(AppModes.SelectGameMode)}>Select another Game Mode</Button></Col>
+      <Col xs="auto"><Button onClick={() => setMode(AppModes.MainScreen)}>Return to the Main Menu</Button></Col>
     </Row>
   )
 
   let mainMenuButton:JSX.Element = (
     <Row className="justify-content-center">
-      <Col md="auto"><Button onClick={() => setMode(AppModes.MainScreen)}>Return to the Main Menu</Button></Col>
+      <Col xs="auto"><Button onClick={() => setMode(AppModes.MainScreen)}>Return to the Main Menu</Button></Col>
     </Row>
   )
 
   let newGameButton:JSX.Element = (
     <Row className="justify-content-center">
-      <Col md="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
+      <Col xs="auto"><Button onClick={handleNewGame}>New Game</Button></Col>
     </Row>
   )
 
@@ -222,22 +222,22 @@ function App() {
         <Container fluid>
           <ScreenHeader title = "Main Menu" />
           <br />
-          <Row className="justify-content-md-center">
-            <Col md="auto">
+          <Row className="justify-content-center">
+            <Col xs="auto">
               <MenuCard header = "Play" title = "open talk" cardText = "Questions to get to know people in varying levels of depth."
                 onClick = {() => {setDeck(openTalkDeck); setMode(AppModes.SelectGameMode)}} buttonText = "Play open talk" disableButton = {false}/>
             </Col>
             {hasImported &&
-            <Col md="auto">
+            <Col xs="auto">
               <MenuCard header = "Play" title = {importDeck.title} cardText = "The custom deck that you have imported previously"
                 onClick = {() => {setDeck(importDeck); setMode(AppModes.SelectGameMode)}} buttonText = {"Play  " + importDeck.title} disableButton = {false}/>
             </Col>
             }
-            <Col md="auto">
+            <Col xs="auto">
               <MenuCard header = "Import" title = "Import Custom Deck" cardText = "Import a custom deck with your own questions! Note that there can only be one imported deck loaded at a time." 
                 onClick = {() => {setMode(AppModes.Importing)}} buttonText = "Import Custom Deck" disableButton = {false}/>
             </Col>
-            <Col md="auto">
+            <Col xs="auto">
               <MenuCard header = "About" title = "About open talk" cardText = "Information about open talk, and instructions on how to play it"
                 onClick = {() => {setMode(AppModes.About)}} buttonText = "About open talk" disableButton = {false}/>
             </Col>
@@ -252,12 +252,12 @@ function App() {
           <ScreenHeader title = "Select Playing Mode" />
           {deckHeader}
           <br />
-          <Row className="justify-content-md-center">
-            <Col md="auto">
+          <Row className="justify-content-center">
+            <Col xs="auto">
               <MenuCard header = "Mode" title = "Categories" cardText = "Deck is split into its categories, choose a card from any of the categories"
                 onClick = {() => {setMode(AppModes.Categories)}} buttonText = "Select Categories Mode" disableButton = {false}/>
             </Col>
-            <Col md="auto">
+            <Col xs="auto">
               <MenuCard header = "Mode" title = "Grid" cardText = {"Cards are arranged into a 5 by 5 grid, only cards adjacent to previously revealed cards can be uncovered. Requires at least " + MIN_GRID_MODE_CARDS + " cards in the deck."}
                 onClick = {() => {setMode(AppModes.Grid)}} buttonText = "Select Grid Mode" disableButton = {(flatten(deck.cards).length < MIN_GRID_MODE_CARDS)}/>
             </Col>
