@@ -4,7 +4,7 @@ import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import { QuestionCard, DisplayCard } from './PlayingCard';
+import { QuestionCard, DisplayCard, PlayingCard, AccordionCardDisplay } from './PlayingCard';
 
 const openCard = new QuestionCard("", "Depth Level", "Question", "Category");
 openCard.uncover();
@@ -49,27 +49,9 @@ export const aboutText:JSX.Element = (
                     <Card.Body>
                         <p>Cards in open talk have three components - Question, Category, and Depth Level</p>
                         <p>They are displayed on the card in the following manner:</p>
-                        <Row className="justify-content-center">
-                            <Col md="auto">
-                                {DisplayCard(openCard, () => {})}
-                                <p>Front of card</p>
-                            </Col>
-                            <Col md="auto">
-                                {DisplayCard(closedCard, () => {})}
-                                <p>Back of card</p>
-                            </Col>
-                        </Row>
+                        {AccordionCardDisplay(openCard, closedCard)}
                         <p>In the card below, "What are your pet peeves?" is the Question, "Self" is the Category and "Launch" is the Depth Level</p>
-                        <Row className="justify-content-center">
-                            <Col md="auto">
-                                {DisplayCard(openSampleCard, () => {})}
-                                <p>Front of card</p>
-                            </Col>
-                            <Col md="auto">
-                                {DisplayCard(closedSampleCard, () => {})}
-                                <p>Back of card</p>
-                            </Col>
-                        </Row>
+                        {AccordionCardDisplay(openSampleCard, closedSampleCard)}
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
