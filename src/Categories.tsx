@@ -27,16 +27,19 @@ function Pile(cards:PlayingCard[], category:string): JSX.Element {
     return (
         <Container>
           <Col>
-            <Row className="justify-content-md-center"><h2>{category}</h2></Row>
-            <Row className="justify-content-md-center"><h5>Cards Remaining: {coveredPile.length - 1}</h5></Row>
+            <Row className="justify-content-center"><h3>{category}</h3></Row>
+            <Row className="justify-content-center"><h5>Cards Remaining: {coveredPile.length - 1}</h5></Row>
             <br />
-            <Row className="justify-content-md-center"><h5>Next Card:</h5></Row>
-            <Row className="justify-content-md-center">
+            <Row className="justify-content-center"><h5>Next Card:</h5></Row>
+            <Row className="justify-content-center">
               {DisplayCard(coveredPile[coveredPile.length - 1], nextCard)}
             </Row>
             <br />
-            <Row className="justify-content-md-center"><h5>Current Card:</h5></Row>
-            <Row className="justify-content-md-center">{DisplayCard(uncoveredPile[uncoveredPile.length - 1], () => {})}</Row>
+            <Row className="justify-content-center"><h5>Current Card:</h5></Row>
+            <Row className="justify-content-center">
+              {DisplayCard(uncoveredPile[uncoveredPile.length - 1], () => {})}
+            </Row>
+            <br />
           </Col>
         </Container>
     )
@@ -46,10 +49,10 @@ function Pile(cards:PlayingCard[], category:string): JSX.Element {
 export function CategoriesMode(prop:{deck: CardDeck}) {
   const shuffled:PlayingCard[][] = shuffleDeck(parseDeck(prop.deck.cards));
   let categories:string[] = prop.deck.categories;
-  let display:JSX.Element[] = categories.map(category => <Col md="auto">{Pile(shuffled[categories.indexOf(category)], category)}</Col>);
+  let display:JSX.Element[] = categories.map(category => <Col xs="auto">{Pile(shuffled[categories.indexOf(category)], category)}</Col>);
   return (
-        <Container fluid>
-          <Row className="justify-content-md-center">
+        <Container>
+          <Row className="justify-content-center">
             {display}
           </Row>
         </Container>
