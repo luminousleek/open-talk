@@ -39,7 +39,7 @@ export function GridMode(prop: {deck:CardDeck}): JSX.Element {
         }
         if (cardsOpened === 0) {
             disableInnerMostCards();
-            cardGrid[2][2] = new EmptyCard("Only cards adjacent to previously opened cards can be uncovered")
+            cardGrid[2][2] = new EmptyCard("Only cards next to previously opened cards can be uncovered")
         }
         if (row > 0) {
             cardGrid[row - 1][col].enableButton();
