@@ -369,6 +369,7 @@ function App() {
           {aboutText}
           <br />
           {mainMenuButton}
+          <br />
         </Container>
       );
       break;
