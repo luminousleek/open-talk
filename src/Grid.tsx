@@ -17,51 +17,8 @@ export function GridMode(prop: {deck:CardDeck}): JSX.Element {
     const [cardsOpened, setCardsOpened] = React.useState(0);
     const [recentCard, setRecentCard] = React.useState<PlayingCard>(blankCard);
 
-    //disable uncover buttons for all cards
-    for (let card of cardsUsed) {
-        card.disableButton();
-    }
-
-    function uncoverCard(row:number, col:number):void {
-        gridArray[row][col].uncover();
-        gridArray[row][col].select();
-        if (recentCard !== blankCard) {
-            recentCard.deselect();
-        }
-        if (cardsOpened === 0) {
-            disableInnerMostCards();
-            gridArray[2][2] = new EmptyCard("Only cards adjacent to previously opened cards can be uncovered")
-        }
-        if (row > 0) {
-            gridArray[row - 1][col].enableButton();
-        }
-        if (row < 4) {
-            gridArray[row + 1][col].enableButton();
-        }
-        if (col > 0) {
-            gridArray[row][col - 1].enableButton();
-        }
-        if (col < 4) {
-            gridArray[row][col + 1].enableButton();
-        }
-        setRecentCard(gridArray[row][col]);
-        setGrid(gridArray);
-        setCardsOpened(cardsOpened + 1);
-    }
-
-    function disableInnerMostCards() {
-        gridArray[1][1].disableButton();
-        gridArray[1][2].disableButton();
-        gridArray[1][3].disableButton();
-        gridArray[2][1].disableButton();
-        gridArray[2][3].disableButton();
-        gridArray[3][1].disableButton();
-        gridArray[3][2].disableButton();
-        gridArray[3][3].disableButton();
-    }
-
     //create two dim array of playing cards for grid
-    const [gridArray, setGrid] = React.useState([
+    const [cardGrid, setGrid] = React.useState([
         [cardsUsed[0], cardsUsed[1], cardsUsed[2], cardsUsed[3], cardsUsed[4]],
         [cardsUsed[5], cardsUsed[6], cardsUsed[7], cardsUsed[8], cardsUsed[9]],
         [cardsUsed[10], cardsUsed[11], new EmptyCard("Uncover any of the surrounding 8 cards"), cardsUsed[12], cardsUsed[13]],
@@ -69,59 +26,92 @@ export function GridMode(prop: {deck:CardDeck}): JSX.Element {
         [cardsUsed[19], cardsUsed[20], cardsUsed[21], cardsUsed[22], cardsUsed[23]]
     ]);
 
+    //disable uncover buttons for all cards
+    for (let card of cardsUsed) {
+        card.disableButton();
+    }
+
+    function uncoverCard(row:number, col:number):void {
+        cardGrid[row][col].uncover();
+        cardGrid[row][col].select();
+        if (recentCard !== blankCard) {
+            recentCard.deselect();
+        }
+        if (cardsOpened === 0) {
+            disableInnerMostCards();
+            cardGrid[2][2] = new EmptyCard("Only cards next to previously opened cards can be uncovered")
+        }
+        if (row > 0) {
+            cardGrid[row - 1][col].enableButton();
+        }
+        if (row < 4) {
+            cardGrid[row + 1][col].enableButton();
+        }
+        if (col > 0) {
+            cardGrid[row][col - 1].enableButton();
+        }
+        if (col < 4) {
+            cardGrid[row][col + 1].enableButton();
+        }
+        setRecentCard(cardGrid[row][col]);
+        setGrid(cardGrid);
+        setCardsOpened(cardsOpened + 1);
+    }
+
+    function disableInnerMostCards() {
+        cardGrid[1][1].disableButton();
+        cardGrid[1][2].disableButton();
+        cardGrid[1][3].disableButton();
+        cardGrid[2][1].disableButton();
+        cardGrid[2][3].disableButton();
+        cardGrid[3][1].disableButton();
+        cardGrid[3][2].disableButton();
+        cardGrid[3][3].disableButton();
+    }
+
     //enable the innermost cards
     if (cardsOpened === 0) {
-        gridArray[1][1].enableButton();
-        gridArray[1][2].enableButton();
-        gridArray[1][3].enableButton();
-        gridArray[2][1].enableButton();
-        gridArray[2][3].enableButton();
-        gridArray[3][1].enableButton();
-        gridArray[3][2].enableButton();
-        gridArray[3][3].enableButton();
+        cardGrid[1][1].enableButton();
+        cardGrid[1][2].enableButton();
+        cardGrid[1][3].enableButton();
+        cardGrid[2][1].enableButton();
+        cardGrid[2][3].enableButton();
+        cardGrid[3][1].enableButton();
+        cardGrid[3][2].enableButton();
+        cardGrid[3][3].enableButton();
+    }
+
+    function GridSquare(row:number, col:number):JSX.Element {
+        return (
+            <Col>{DisplayCard(cardGrid[row][col], ()=>{uncoverCard(row,col)})}</Col>
+        )
+    }
+
+    function GridRow(row:number, cols:number):JSX.Element {
+
+        let rowArr = [];
+        for (let i = 0; i < cols; i++) {
+            rowArr.push(GridSquare(row, i));
+        }
+
+        return (
+            <Row className="justify-content-center" sm={5} xs = {5}>
+                {rowArr}
+            </Row>
+        )
     }
 
     return (
-        <Container fluid>
-            <Row className="justify-content-center">
-                <Col md="auto">{DisplayCard(gridArray[0][0], ()=>{uncoverCard(0,0)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[0][1], ()=>{uncoverCard(0,1)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[0][2], ()=>{uncoverCard(0,2)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[0][3], ()=>{uncoverCard(0,3)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[0][4], ()=>{uncoverCard(0,4)})}</Col>
-            </Row>
+        <Container>
+            {GridRow(0, 5)}
             <br />
-            <Row className="justify-content-center">
-                <Col md="auto">{DisplayCard(gridArray[1][0], ()=>{uncoverCard(1,0)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[1][1], ()=>{uncoverCard(1,1)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[1][2], ()=>{uncoverCard(1,2)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[1][3], ()=>{uncoverCard(1,3)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[1][4], ()=>{uncoverCard(1,4)})}</Col>
-            </Row>
+            {GridRow(1, 5)}
             <br />
-            <Row className="justify-content-center">
-                <Col md="auto">{DisplayCard(gridArray[2][0], ()=>{uncoverCard(2,0)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[2][1], ()=>{uncoverCard(2,1)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[2][2], ()=>{uncoverCard(2,2)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[2][3], ()=>{uncoverCard(2,3)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[2][4], ()=>{uncoverCard(2,4)})}</Col>
-            </Row>
+            {GridRow(2, 5)}
             <br />
-            <Row className="justify-content-center">
-                <Col md="auto">{DisplayCard(gridArray[3][0], ()=>{uncoverCard(3,0)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[3][1], ()=>{uncoverCard(3,1)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[3][2], ()=>{uncoverCard(3,2)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[3][3], ()=>{uncoverCard(3,3)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[3][4], ()=>{uncoverCard(3,4)})}</Col>
-            </Row>
+            {GridRow(3, 5)}
             <br />
-            <Row className="justify-content-center">
-                <Col md="auto">{DisplayCard(gridArray[4][0], ()=>{uncoverCard(4,0)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[4][1], ()=>{uncoverCard(4,1)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[4][2], ()=>{uncoverCard(4,2)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[4][3], ()=>{uncoverCard(4,3)})}</Col>
-                <Col md="auto">{DisplayCard(gridArray[4][4], ()=>{uncoverCard(4,4)})}</Col>
-            </Row>
+            {GridRow(4, 5)}
         </Container>
     )
 }

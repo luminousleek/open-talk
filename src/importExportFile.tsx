@@ -1,10 +1,8 @@
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
 import Accordion from 'react-bootstrap/Accordion';
 import Card from 'react-bootstrap/Card';
-import { CardTuple, QuestionCard, DisplayCard } from './PlayingCard';
+import { CardTuple, QuestionCard, AccordionCardDisplay } from './PlayingCard';
 import { CardDeck } from "./decks";
 
 export function ExportDeck(prop: {deck:CardDeck}): JSX.Element {
@@ -44,16 +42,7 @@ export const importText:JSX.Element = (
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <Row className="justify-content-center">
-                            <Col md="auto">
-                                {DisplayCard(openCard, () => {})}
-                                <p>Front of card</p>
-                            </Col>
-                            <Col md="auto">
-                                {DisplayCard(closedCard, () => {})}
-                                <p>Back of card</p>
-                            </Col>
-                        </Row>
+                        {AccordionCardDisplay(openCard, closedCard)}
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
@@ -72,16 +61,7 @@ export const importText:JSX.Element = (
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <Row className="justify-content-center">
-                            <Col md="auto">
-                                {DisplayCard(openSampleCard, () => {})}
-                                <p>Front of card</p>
-                            </Col>
-                            <Col md="auto">
-                                {DisplayCard(closedSampleCard, () => {})}
-                                <p>Back of card</p>
-                            </Col>
-                        </Row>
+                        {AccordionCardDisplay(openSampleCard, closedSampleCard)}
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
@@ -96,16 +76,7 @@ export const importText:JSX.Element = (
                 </Accordion.Toggle>
                 <Accordion.Collapse eventKey="0">
                     <Card.Body>
-                        <Row className="justify-content-center">
-                            <Col md="auto">
-                                {DisplayCard(openMissingCard, () => {})}
-                                <p>Front of card</p>
-                            </Col>
-                            <Col md="auto">
-                                {DisplayCard(closedMissingCard, () => {})}
-                                <p>Back of card</p>
-                            </Col>
-                        </Row>
+                        {AccordionCardDisplay(openMissingCard, closedMissingCard)}
                     </Card.Body>
                 </Accordion.Collapse>
             </Card>
