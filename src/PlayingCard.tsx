@@ -2,6 +2,7 @@ import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
+import { CSSProperties } from 'react';
 
 export type CardTuple = [string, string, string, string];
 
@@ -91,13 +92,14 @@ export function DisplayCard(card: PlayingCard, onClick:() => void): JSX.Element 
     let selected: boolean = card.selected;
     const buttonEnabled: boolean = card.buttonEnabled;
 
+    let cardStyle:CSSProperties = {width:'100%', maxWidth:'12rem', minHeight: '18rem', wordBreak:'break-word'}
     let displayed:JSX.Element;
 
     if (covered) {
       displayed = <Card 
                 bg='light'
                 text='dark' 
-                style={{ width: '12rem', height: '18rem'}}>
+                style={cardStyle}>
                 <Card.Header>{depth}</Card.Header>
                 <Card.Body>
                   <Card.Title>{category}</Card.Title>
@@ -113,7 +115,7 @@ export function DisplayCard(card: PlayingCard, onClick:() => void): JSX.Element 
       displayed = <Card 
                 bg='info'
                 text='white' 
-                style={{ width: '12rem', height: '18rem'}}>
+                style={cardStyle}>
                 <Card.Header>{depth}</Card.Header>
                 <Card.Body>
                   <Card.Title>{title}</Card.Title>
@@ -125,7 +127,7 @@ export function DisplayCard(card: PlayingCard, onClick:() => void): JSX.Element 
       displayed = <Card 
                 bg='dark'
                 text='white' 
-                style={{ width: '12rem', height: '18rem'}}>
+                style={cardStyle}>
                 <Card.Header>{depth}</Card.Header>
                 <Card.Body>
                   <Card.Title>{title}</Card.Title>
